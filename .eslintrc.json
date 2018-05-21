@@ -1,0 +1,26 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": ["jest"],
+  "rules": {
+    "prefer-const": "off",
+    "function-paren-newline": "off",
+    "react/jsx-filename-extension": ["error", {
+      "extensions": [".js"]
+    }],
+    "react/jsx-tag-spacing": ["error", {
+      "beforeSelfClosing": "never"
+    }]
+  },
+  "env": {
+    "browser": true
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**"],
+      "env": {
+        "jest/globals": true
+      }
+    }
+  ]
+}
