@@ -4,6 +4,7 @@ steps:
       - pwd
       - ls -la
       - ls -la /
+      - ls -la /var
       - ls -la /var/buildkite/builds
     plugins:
       docker#v1.1.1:
