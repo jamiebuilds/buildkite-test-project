@@ -21,8 +21,8 @@ spec:
                 secretKeyRef:
                   name: buildkite-agent
                   key: token
-            - name: BUILDKITE_BUILD_PATH
-              value: "/var/buildkite/builds"
+            # - name: BUILDKITE_BUILD_PATH
+            #   value: "/var/buildkite/builds"
           volumeMounts:
             - name: docker-binary
               mountPath: /usr/bin/docker
