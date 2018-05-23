@@ -1,0 +1,30 @@
+steps:
+  - name: ":docker:"
+    plugins:
+      docker-compose#v2.2.1:
+        build: app
+        image-repository: lox/buildkite-test-project
+
+  - name: ":jest: Test"
+    command: yarn test
+    plugins:
+      docker-compose#v2.2.1:
+        run: app
+
+  - name: ":eslint: Lint"
+    command: yarn lint
+    plugins:
+      docker-compose#v2.2.1:
+        run: app
+
+  - name: ":flowtype: Typecheck"
+    command: yarn typecheck
+    plugins:
+      docker-compose#v2.2.1:
+        run: app
+
+  - name: ":globe_with_meridians: Build"
+    command: yarn build
+    plugins:
+      docker-compose#v2.2.1:
+        run: app
