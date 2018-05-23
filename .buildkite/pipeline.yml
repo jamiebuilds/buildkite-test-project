@@ -3,7 +3,7 @@ steps:
     plugins:
       docker-compose#v2.2.1:
         build: app
-        image-repository: lox/buildkite-test-project
+        image-repository: lox24/buildkite-test-project
 
   - name: ":jest: Test"
     command: yarn test
