@@ -45,8 +45,8 @@ spec:
           hostPath:
             path: /var/run/docker.sock
         - name: buildkite-builds
-          hostPath:
-            path: /var/buildkite/builds
+          persistentVolumeClaim:
+            claimName: buildkite-builds
         - name: ssh-keys
           secret:
             secretName: buildkite-agent-ssh

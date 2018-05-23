@@ -1,4 +1,12 @@
 steps:
+  - name: "Debug"
+    command:
+      - pwd
+      - ls -la
+    plugins:
+      docker#v1.1.1:
+        image: "node:8"
+        mount-buildkite-agent: false
   - name: ":jest: Test"
     command:
       - yarn install --pure-lockfile
