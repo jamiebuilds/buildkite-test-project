@@ -3,7 +3,7 @@ steps:
     plugins:
       docker-compose#v2.2.1:
         build: app
-        image-repository: 005820773040.dkr.ecr.us-east-1.amazonaws.com/buildkite-test-project
+        image-repository: ${DOCKER_IMAGE_REPOSITORY?}
 
   - wait
 
@@ -24,6 +24,8 @@ steps:
     plugins:
       docker-compose#v2.2.1:
         run: app
+
+  - wait
 
   - name: ":globe_with_meridians: Build"
     command: yarn build
