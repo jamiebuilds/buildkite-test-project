@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: buildkite-agent
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: buildkite-agent
+    spec:
+      containers:
+        - name: buildkite-agent
+          image: buildkite/agent
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          env:
+            - name: BUILDKITE_AGENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: buildkite-agent
+                  key: token
+            - name: BUILDKITE_BUILD_PATH
+              value: "/var/buildkite/builds"
+          volumeMounts:
+            - name: docker-binary
+              mountPath: /usr/bin/docker
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+            - name: buildkite-builds
+              mountPath: /var/buildkite/builds
+            - name: ssh-keys
+              mountPath: /root/.ssh/id_rsa
+              subPath: id_rsa
+            - name: ssh-keys
+              mountPath: /root/.ssh/id_rsa.pub
+              subPath: id_rsa.pub
+
+      volumes:
+        - name: docker-binary
+          hostPath:
+            path: /usr/bin/docker
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+        - name: buildkite-builds
+          hostPath:
+            path: /var/buildkite/builds
+        - name: ssh-keys
+          secret:
+            secretName: buildkite-agent-ssh
+            defaultMode: 0400
