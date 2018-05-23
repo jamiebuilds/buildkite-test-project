@@ -1,12 +1,10 @@
 # For local development
 
-FROM    node:8.9.4-alpine
+FROM    node:8
 ENV     NODE_ENV=development
 EXPOSE  3000
 WORKDIR /app
 COPY    package.json yarn.lock /app/
-RUN     apk --no-cache --virtual build-dependencies add python make g++ && \
-        yarn install --frozen-lockfile --silent && \
-        apk del build-dependencies
+RUN     yarn install --frozen-lockfile --silent
 COPY    . /app
 CMD     ["yarn", "run", "start"]

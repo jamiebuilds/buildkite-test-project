@@ -4,6 +4,7 @@ steps:
       docker-compose#v2.2.1:
         build: app
         image-repository: ${DOCKER_IMAGE_REPOSITORY?}
+        image-name: "buildkite-test-project-build-${BUILDKITE_BUILD_NUMBER}"
 
   - wait
 
