@@ -3,6 +3,8 @@ steps:
     command:
       - pwd
       - ls -la
+      - ls -la /
+      - ls -la /var/buildkite/builds
     plugins:
       docker#v1.1.1:
         image: "node:8"

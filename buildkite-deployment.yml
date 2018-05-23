@@ -28,8 +28,8 @@ spec:
               mountPath: /usr/bin/docker
             - name: docker-socket
               mountPath: /var/run/docker.sock
-            - name: buildkite-builds
-              mountPath: /var/buildkite/builds
+            # - name: buildkite-builds
+            #   mountPath: /var/buildkite/builds
             - name: ssh-keys
               mountPath: /root/.ssh/id_rsa
               subPath: id_rsa
@@ -44,9 +44,9 @@ spec:
         - name: docker-socket
           hostPath:
             path: /var/run/docker.sock
-        - name: buildkite-builds
-          persistentVolumeClaim:
-            claimName: buildkite-builds
+        # - name: buildkite-builds
+        #   persistentVolumeClaim:
+        #     claimName: buildkite-builds
         - name: ssh-keys
           secret:
             secretName: buildkite-agent-ssh
