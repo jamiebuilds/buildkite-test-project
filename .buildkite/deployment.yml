@@ -1,68 +1,69 @@
-kind: List
-apiVersion: v1
-items:
-  - kind: Deployment
-    apiVersion: extensions/v1beta1
+kind: StatefulSet
+apiVersion: apps/v1beta2
+metadata:
+  name: buildkite-agent
+spec:
+  serviceName: buildkite-agent
+  selector:
+    matchLabels:
+      app: buildkite-agent
+  replicas: 3
+  template:
     metadata:
-      name: buildkite-agent
+      labels:
+        app: buildkite-agent
     spec:
-      replicas: 5
-      template:
-        metadata:
-          labels:
-            app: buildkite-agent
-        spec:
-          containers:
-            - name: buildkite-agent
-              image: us.gcr.io/buildkite-test-project/buildkite-agent-node
-              imagePullPolicy: Always
-              securityContext:
-                privileged: true
-              env:
-                - name: BUILDKITE_AGENT_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      name: buildkite-agent
-                      key: token
-                - name: BUILDKITE_BUILD_PATH
-                  value: "/var/buildkite/builds"
-              volumeMounts:
-                - name: docker-binary
-                  mountPath: /usr/bin/docker
-                - name: docker-socket
-                  mountPath: /var/run/docker.sock
-                - name: buildkite-builds
-                  mountPath: /var/buildkite/builds
-                - name: ssh-keys
-                  mountPath: /root/.ssh/id_rsa
-                  subPath: id_rsa
-                - name: ssh-keys
-                  mountPath: /root/.ssh/id_rsa.pub
-                  subPath: id_rsa.pub
-          volumes:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: buildkite-agent
+          image: buildkite/agent
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          env:
+            - name: BUILDKITE_AGENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: buildkite-agent
+                  key: token
+            - name: BUILDKITE_BUILD_PATH
+              value: "/var/buildkite/builds"
+          volumeMounts:
             - name: docker-binary
-              hostPath:
-                path: /usr/bin/docker
+              mountPath: /usr/bin/docker
             - name: docker-socket
-              hostPath:
-                path: /var/run/docker.sock
+              mountPath: /var/run/docker.sock
             - name: ssh-keys
-              secret:
-                secretName: buildkite-agent-ssh
-                defaultMode: 0400
-            # - name: buildkite-builds
-            #   persistentVolumeClaim:
-            #     claimName: buildkite-builds
+              mountPath: /root/.ssh/id_rsa
+              subPath: id_rsa
+            - name: ssh-keys
+              mountPath: /root/.ssh/id_rsa.pub
+              subPath: id_rsa.pub
             - name: buildkite-builds
-              hostPath:
-                path: /var/buildkite/builds
-  # - kind: PersistentVolumeClaim
-  #   apiVersion: v1
-  #   metadata:
-  #     name: buildkite-builds
-  #   spec:
-  #     accessModes:
-  #       - ReadWriteOnce
-  #     resources:
-  #       requests:
-  #         storage: 3Gi
+              mountPath: /var/buildkite/builds
+      volumes:
+        - name: docker-binary
+          hostPath:
+            path: /usr/bin/docker
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+        - name: ssh-keys
+          secret:
+            secretName: buildkite-agent-ssh
+            defaultMode: 0400
+        # - name: buildkite-builds
+        #   persistentVolumeClaim:
+        #     claimName: buildkite-builds
+        # - name: buildkite-builds
+        #   hostPath:
+        #     path: /var/buildkite/builds
+  volumeClaimTemplates:
+    - metadata:
+        name: buildkite-builds
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 3Gi
