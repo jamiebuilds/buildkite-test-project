@@ -7,7 +7,10 @@ spec:
   selector:
     matchLabels:
       app: buildkite-agent
-  replicas: 3
+  replicas: 10
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
   template:
     metadata:
       labels:
@@ -27,7 +30,7 @@ spec:
                   name: buildkite-agent
                   key: token
             - name: BUILDKITE_BUILD_PATH
-              value: "/var/buildkite/builds"
+              value: /var/buildkite/builds
           volumeMounts:
             - name: docker-binary
               mountPath: /usr/bin/docker
