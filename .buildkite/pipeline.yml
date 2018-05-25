@@ -7,6 +7,7 @@ steps:
       - ls -la /var/buildkite
       - ls -la /var/buildkite/builds
       - ls -la /buildkite
+      - ls -la /workdir
     plugins:
       docker#v1.1.1:
         image: "node:8"
