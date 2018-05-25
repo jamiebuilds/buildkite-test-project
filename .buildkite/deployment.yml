@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: buildkite-agent
-          image: buildkite/agent
+          image: us.gcr.io/buildkite-test-project/buildkite-agent-node:latest
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -55,12 +55,6 @@ spec:
           secret:
             secretName: buildkite-agent-ssh
             defaultMode: 0400
-        # - name: buildkite-builds
-        #   persistentVolumeClaim:
-        #     claimName: buildkite-builds
-        # - name: buildkite-builds
-        #   hostPath:
-        #     path: /var/buildkite/builds
   volumeClaimTemplates:
     - metadata:
         name: buildkite-builds
