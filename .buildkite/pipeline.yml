@@ -6,7 +6,7 @@ steps:
       - echo '/var' && ls -la /var
       - echo '/var/buildkite' && ls -la /var/buildkite
       - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
-      - echo '/buildkite' && ls -la /buildkite
+      # - echo '/buildkite' && ls -la /buildkite
       # - echo '/workdir' && ls -la /workdir
     plugins:
       docker#v1.1.1:
