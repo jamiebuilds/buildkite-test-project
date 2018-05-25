@@ -1,31 +1,11 @@
 steps:
-  - name: "debug"
-    command:
-      - echo '.' && ls -la
-      - echo '/' && ls -la /
-      - echo '/var' && ls -la /var
-      - echo '/var/buildkite' && ls -la /var/buildkite
-      - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
-      - echo '/buildkite' && ls -la /buildkite
-      - echo '/workdir' && ls -la /workdir
-    # plugins:
-    #   docker#v1.1.1:
-    #     image: node:10
-    #     mount-buildkite-agent: false
-    #     mounts:
-    #       - /var/run/docker.sock:/var/run/docker.sock
-    #       - /var/buildkite/builds:/var/buildkite/builds
   - name: "debug container"
     command:
-      - echo '.' && ls -la
-      - echo '/' && ls -la /
-      - echo '/var' && ls -la /var
-      - echo '/var/buildkite' && ls -la /var/buildkite
       - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
-      - echo '/buildkite' && ls -la /buildkite
       - echo '/workdir' && ls -la /workdir
     plugins:
       docker#v1.1.1:
+        debug: true
         image: node:10
         mount-buildkite-agent: false
         mounts:
