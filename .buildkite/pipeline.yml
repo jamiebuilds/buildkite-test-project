@@ -30,7 +30,7 @@ steps:
         mount-buildkite-agent: false
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds/BUILDKITE_AGENT_NAME:/workdir
+          - /var/buildkite/builds/$BUILDKITE_AGENT_NAME:/workdir
   # - name: ":jest: Test"
   #   command:
   #     - yarn install --pure-lockfile
