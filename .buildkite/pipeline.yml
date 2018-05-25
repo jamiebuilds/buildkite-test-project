@@ -1,6 +1,9 @@
 steps:
   - name: "debug container"
     command:
+      - echo $PWD
+  - name: "debug container"
+    command:
       - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
       - echo '/workdir' && ls -la /workdir
     plugins:
