@@ -2,6 +2,7 @@ steps:
   - name: "debug container"
     command:
       - echo $PWD
+      - ls $PWD
   - name: "debug container"
     command:
       - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
@@ -13,7 +14,6 @@ steps:
         mount-buildkite-agent: false
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds/$BUILDKITE_AGENT_NAME:/workdir
   # - name: ":jest: Test"
   #   command:
   #     - yarn install --pure-lockfile
