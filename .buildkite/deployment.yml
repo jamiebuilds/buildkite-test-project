@@ -44,6 +44,16 @@ spec:
               subPath: id_rsa.pub
             - name: buildkite-builds
               mountPath: /var/buildkite/builds
+        - name: node
+          image: node:10
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: docker-binary
+              mountPath: /usr/bin/docker
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
       volumes:
         - name: docker-binary
           hostPath:
