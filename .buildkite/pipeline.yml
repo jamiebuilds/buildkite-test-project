@@ -7,7 +7,7 @@ steps:
       - echo '/var/buildkite' && ls -la /var/buildkite
       - echo '/var/buildkite/builds' && ls -la /var/buildkite/builds
       - echo '/buildkite' && ls -la /buildkite
-      - echo '/workdir' && ls -la /workdir
+      # - echo '/workdir' && ls -la /workdir
     plugins:
       docker#v1.1.1:
         image: "node:8"
