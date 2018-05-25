@@ -1,41 +1,55 @@
 steps:
-  - name: ":jest: Test"
+  - name: "debug"
     command:
-      - yarn install --pure-lockfile
-      - yarn test
+      - ls -la
+      - ls -la /
+      - ls -la /var
+      - ls -la /var/buildkite
+      - ls -la /var/buildkite/builds
+      - ls -la /buildkite
     plugins:
       docker#v1.1.1:
         image: "node:8"
         mount-buildkite-agent: false
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
-  - name: ":eslint: Lint"
-    command:
-      - yarn install --pure-lockfile
-      - yarn lint
-    plugins:
-      docker#v1.1.1:
-        image: "node:8"
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-  - name: ":flowtype: Typecheck"
-    command:
-      - yarn install --pure-lockfile
-      - yarn typecheck
-    plugins:
-      docker#v1.1.1:
-        image: "node:8"
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-  - name: ":globe_with_meridians: Build"
-    command:
-      - yarn install --pure-lockfile
-      - yarn build
-    plugins:
-      docker#v1.1.1:
-        image: "node:8"
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
+  # - name: ":jest: Test"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn test
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: "node:8"
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  # - name: ":eslint: Lint"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn lint
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: "node:8"
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  # - name: ":flowtype: Typecheck"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn typecheck
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: "node:8"
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  # - name: ":globe_with_meridians: Build"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn build
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: "node:8"
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
