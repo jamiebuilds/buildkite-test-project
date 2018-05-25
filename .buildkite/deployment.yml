@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: buildkite-agent
-          image: us.gcr.io/buildkite-test-project/buildkite-agent-node:latest
+          image: buildkite/agent
           imagePullPolicy: Always
           securityContext:
             privileged: true
@@ -29,8 +29,8 @@ spec:
                 secretKeyRef:
                   name: buildkite-agent
                   key: token
-            # - name: BUILDKITE_BUILD_PATH
-            #   value: /var/buildkite/builds
+            - name: BUILDKITE_BUILD_PATH
+              value: /var/buildkite/builds
           volumeMounts:
             - name: docker-binary
               mountPath: /usr/bin/docker
@@ -42,20 +42,8 @@ spec:
             - name: ssh-keys
               mountPath: /root/.ssh/id_rsa.pub
               subPath: id_rsa.pub
-            # - name: buildkite-builds
-            #   mountPath: /var/buildkite/builds
-        - name: node
-          image: node:10
-          imagePullPolicy: Always
-          securityContext:
-            privileged: true
-          volumeMounts:
-            - name: docker-binary
-              mountPath: /usr/bin/docker
-            - name: docker-socket
-              mountPath: /var/run/docker.sock
             - name: buildkite-builds
-              mountPath: /workdir
+              mountPath: /var/buildkite/builds
       volumes:
         - name: docker-binary
           hostPath:
