@@ -1,9 +1,4 @@
 steps:
-  # - name: ":yarn: Yarn"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - buildkite-agent artifact upload "$(yarn cache dir)/**"
-  # - wait
   - name: ":jest: Test"
     command:
       - yarn install --pure-lockfile
@@ -15,16 +10,37 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-  # - name: ":eslint: Lint"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn lint
-  # - name: ":flowtype: Typecheck"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - apt-get update -qq && apt-get install -qy libelf1
-  #     - yarn typecheck --max-workers 0
-  # - name: ":globe_with_meridians: Build"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn build
+  - name: ":eslint: Lint"
+    command:
+      - yarn install --pure-lockfile
+      - yarn lint
+    plugins:
+      docker#v1.4.0:
+        image: node:10
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  - name: ":flowtype: Typecheck"
+    command:
+      - yarn install --pure-lockfile
+      - apt-get update -qq && apt-get install -qy libelf1
+      - yarn typecheck --max-workers 0
+    plugins:
+      docker#v1.4.0:
+        image: node:10
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  - name: ":globe_with_meridians: Build"
+    command:
+      - yarn install --pure-lockfile
+      - yarn build
+    plugins:
+      docker#v1.4.0:
+        image: node:10
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
