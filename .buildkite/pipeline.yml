@@ -37,6 +37,7 @@ steps:
   - name: ":flowtype: Typecheck"
     command:
       - yarn install --pure-lockfile
+      - apt-get update -qq && apt-get install -qy libelf1
       - yarn typecheck
     plugins:
       docker#v1.1.1:
