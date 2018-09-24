@@ -3,32 +3,28 @@ steps:
   #   command:
   #     - yarn install --pure-lockfile
   #     - buildkite-agent artifact upload "$(yarn cache dir)/**"
-  #   # plugins:
-  #   #   docker#v1.4.0:
-  #   #     image: node:10
-  #   #     mount-buildkite-agent: false
-  #   #     mounts:
-  #   #       - /var/run/docker.sock:/var/run/docker.sock
-  #   #       - /var/buildkite/builds:/var/buildkite/builds
   # - wait
   - name: ":jest: Test"
     command:
-      - sh ./.buildkite/setup.sh
       - yarn install --pure-lockfile
       - yarn test --coverage
-  - name: ":eslint: Lint"
-    command:
-      - sh ./.buildkite/setup.sh
-      - yarn install --pure-lockfile
-      - yarn lint
-  - name: ":flowtype: Typecheck"
-    command:
-      - sh ./.buildkite/setup.sh
-      - yarn install --pure-lockfile
-      - apt-get update -qq && apt-get install -qy libelf1
-      - yarn typecheck --max-workers 0
-  - name: ":globe_with_meridians: Build"
-    command:
-      - sh ./.buildkite/setup.sh
-      - yarn install --pure-lockfile
-      - yarn build
+    plugins:
+      docker#v1.4.0:
+        image: node:10
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  # - name: ":eslint: Lint"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn lint
+  # - name: ":flowtype: Typecheck"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - apt-get update -qq && apt-get install -qy libelf1
+  #     - yarn typecheck --max-workers 0
+  # - name: ":globe_with_meridians: Build"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn build
