@@ -1,24 +1,25 @@
 steps:
-  - name: "debug container"
-    command:
-      - echo $PWD
-      - ls $PWD
-  - name: "debug container"
-    command:
-      - echo '/workdir' && ls -la /workdir
-      - ls /var/lib/buildkite-agent/builds
-      - ls /var/buildkite/builds
-    plugins:
-      docker#v1.1.1:
-        image: node:10
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-  - name: ":jest: Test"
+  # - name: "debug container"
+  #   command:
+  #     - echo $PWD
+  #     - ls $PWD
+  # - name: "debug container"
+  #   command:
+  #     - echo '/workdir' && ls -la /workdir
+  #     - ls /var/lib/buildkite-agent/builds
+  #     - ls /var/buildkite/builds
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: node:10
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  #         - /var/buildkite/builds:/var/buildkite/builds
+  - name: ":yarn: Yarn"
     command:
       - yarn install --pure-lockfile
-      - yarn test --coverage
+      - yarn cache dir
+      - ls $(yarn cache dir)
     plugins:
       docker#v1.1.1:
         image: node:10
@@ -26,8 +27,21 @@ steps:
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
-    artifact_paths:
-      - "coverage/**/*"
+    # artifact_paths:
+    #   - "coverage/**/*"
+  # - name: ":jest: Test"
+  #   command:
+  #     - yarn install --pure-lockfile
+  #     - yarn test --coverage
+  #   plugins:
+  #     docker#v1.1.1:
+  #       image: node:10
+  #       mount-buildkite-agent: false
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  #         - /var/buildkite/builds:/var/buildkite/builds
+  #   artifact_paths:
+  #     - "coverage/**/*"
   # - name: ":eslint: Lint"
   #   command:
   #     - yarn install --pure-lockfile
