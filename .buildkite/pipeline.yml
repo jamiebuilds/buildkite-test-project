@@ -15,17 +15,19 @@ steps:
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
-  # - name: ":jest: Test"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn test
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
+  - name: ":jest: Test"
+    command:
+      - yarn install --pure-lockfile
+      - yarn test --coverage
+    plugins:
+      docker#v1.1.1:
+        image: node:10
+        mount-buildkite-agent: false
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+    artifact_paths:
+      - "coverage/**/*"
   # - name: ":eslint: Lint"
   #   command:
   #     - yarn install --pure-lockfile
