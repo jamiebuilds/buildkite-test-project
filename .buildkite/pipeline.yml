@@ -1,77 +1,30 @@
 steps:
-  # - name: "debug container"
+  # - name: ":yarn: Yarn"
   #   command:
-  #     - echo $PWD
-  #     - ls $PWD
-  # - name: "debug container"
-  #   command:
-  #     - echo '/workdir' && ls -la /workdir
-  #     - ls /var/lib/buildkite-agent/builds
-  #     - ls /var/buildkite/builds
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
-  - name: ":yarn: Yarn"
-    command:
-      - yarn install --pure-lockfile
-      - buildkite-agent artifact upload "$(yarn cache dir)/**"
-    plugins:
-      docker#v1.1.1:
-        image: node:10
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-  - wait
+  #     - yarn install --pure-lockfile
+  #     - buildkite-agent artifact upload "$(yarn cache dir)/**"
+  #   # plugins:
+  #   #   docker#v1.4.0:
+  #   #     image: node:10
+  #   #     mount-buildkite-agent: false
+  #   #     mounts:
+  #   #       - /var/run/docker.sock:/var/run/docker.sock
+  #   #       - /var/buildkite/builds:/var/buildkite/builds
+  # - wait
   - name: ":jest: Test"
     command:
-      - buildkite-agent artifact download "$(yarn cache dir)/**" $(yarn cache dir)
       - yarn install --pure-lockfile
       - yarn test --coverage
-    plugins:
-      docker#v1.1.1:
-        image: node:10
-        mount-buildkite-agent: false
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-    artifact_paths:
-      - "coverage/**/*"
-  # - name: ":eslint: Lint"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn lint
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
-  # - name: ":flowtype: Typecheck"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - apt-get update -qq && apt-get install -qy libelf1
-  #     - yarn typecheck --max-workers 0
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
-  # - name: ":globe_with_meridians: Build"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn build
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
+  - name: ":eslint: Lint"
+    command:
+      - yarn install --pure-lockfile
+      - yarn lint
+  - name: ":flowtype: Typecheck"
+    command:
+      - yarn install --pure-lockfile
+      - apt-get update -qq && apt-get install -qy libelf1
+      - yarn typecheck --max-workers 0
+  - name: ":globe_with_meridians: Build"
+    command:
+      - yarn install --pure-lockfile
+      - yarn build
