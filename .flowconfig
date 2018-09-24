@@ -8,5 +8,6 @@
 [lints]
 
 [options]
+log.file=./flow.log
 
 [strict]

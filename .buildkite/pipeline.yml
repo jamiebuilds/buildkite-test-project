@@ -33,6 +33,8 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+    artifact_paths:
+      - "./flow.log"
   - name: ":globe_with_meridians: Build"
     command:
       - yarn install --pure-lockfile
