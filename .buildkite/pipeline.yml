@@ -39,6 +39,7 @@ steps:
       - yarn install --pure-lockfile
       - apt-get update -qq && apt-get install -qy libelf1
       - yarn typecheck
+      - ls -la
     plugins:
       docker#v1.1.1:
         image: node:10
