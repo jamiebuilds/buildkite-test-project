@@ -18,8 +18,7 @@ steps:
   - name: ":yarn: Yarn"
     command:
       - yarn install --pure-lockfile
-      - yarn cache dir
-      - ls $(yarn cache dir)
+      - buildkite-agent artifact upload "$(yarn cache dir)/**"
     plugins:
       docker#v1.1.1:
         image: node:10
@@ -27,21 +26,21 @@ steps:
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
-    # artifact_paths:
-    #   - "coverage/**/*"
-  # - name: ":jest: Test"
-  #   command:
-  #     - yarn install --pure-lockfile
-  #     - yarn test --coverage
-  #   plugins:
-  #     docker#v1.1.1:
-  #       image: node:10
-  #       mount-buildkite-agent: false
-  #       mounts:
-  #         - /var/run/docker.sock:/var/run/docker.sock
-  #         - /var/buildkite/builds:/var/buildkite/builds
-  #   artifact_paths:
-  #     - "coverage/**/*"
+  - wait
+  - name: ":jest: Test"
+    command:
+      - buildkite-agent artifact download "$(yarn cache dir)/**" $(yarn cache dir)
+      - yarn install --pure-lockfile
+      - yarn test --coverage
+    plugins:
+      docker#v1.1.1:
+        image: node:10
+        mount-buildkite-agent: false
+        mounts:
+          - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
+    artifact_paths:
+      - "coverage/**/*"
   # - name: ":eslint: Lint"
   #   command:
   #     - yarn install --pure-lockfile
