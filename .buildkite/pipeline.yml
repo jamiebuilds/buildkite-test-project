@@ -6,6 +6,7 @@ steps:
   - name: "debug container"
     command:
       - echo '/workdir' && ls -la /workdir
+      - ls /var/lib/buildkite-agent/builds
       - ls /var/buildkite/builds
     plugins:
       docker#v1.1.1:
@@ -13,6 +14,7 @@ steps:
         mount-buildkite-agent: false
         mounts:
           - /var/run/docker.sock:/var/run/docker.sock
+          - /var/buildkite/builds:/var/buildkite/builds
   # - name: ":jest: Test"
   #   command:
   #     - yarn install --pure-lockfile
