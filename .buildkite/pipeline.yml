@@ -2,7 +2,7 @@ steps:
   - name: ":jest: Test"
     command:
       - yarn install --pure-lockfile
-      - echo "+++ yarn test"
+      - echo "+++ :jest: yarn test"
       - yarn test --coverage
     plugins:
       docker#v1.4.0:
@@ -14,7 +14,7 @@ steps:
   - name: ":eslint: Lint"
     command:
       - yarn install --pure-lockfile
-      - echo "+++ yarn lint"
+      - echo "+++ :eslint: yarn lint"
       - yarn lint
     plugins:
       docker#v1.4.0:
@@ -27,7 +27,7 @@ steps:
     command:
       - yarn install --pure-lockfile
       - apt-get update -qq && apt-get install -qy libelf1
-      - echo "+++ yarn typecheck"
+      - echo "+++ :flowtype: yarn typecheck"
       - yarn typecheck
     plugins:
       docker#v1.4.0:
@@ -38,10 +38,10 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
     artifact_paths:
       - "./flow.log"
-  - name: ":globe_with_meridians: Build"
+  - name: ":parcel: Build"
     command:
       - yarn install --pure-lockfile
-      - echo "+++ yarn build"
+      - echo "+++ :parcel: yarn build"
       - yarn build
     plugins:
       docker#v1.4.0:
