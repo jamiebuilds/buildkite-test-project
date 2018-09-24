@@ -1,6 +1,7 @@
 steps:
   - name: ":jest: Test"
     command:
+      - echo "+++ yarn test"
       - yarn install --pure-lockfile
       - yarn test --coverage
     plugins:
@@ -12,6 +13,7 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":eslint: Lint"
     command:
+      - echo "+++ yarn lint"
       - yarn install --pure-lockfile
       - yarn lint
     plugins:
@@ -23,6 +25,7 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":flowtype: Typecheck"
     command:
+      - echo "+++ yarn typecheck"
       - yarn install --pure-lockfile
       - apt-get update -qq && apt-get install -qy libelf1
       - yarn typecheck
@@ -37,6 +40,7 @@ steps:
       - "./flow.log"
   - name: ":globe_with_meridians: Build"
     command:
+      - echo "+++ yarn build"
       - yarn install --pure-lockfile
       - yarn build
     plugins:
