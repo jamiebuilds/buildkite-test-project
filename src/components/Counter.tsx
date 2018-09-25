@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+import * as React from 'react';
 import { Subscribe } from 'unstated';
 import CounterContainer from '../containers/CounterContainer';
 
@@ -10,7 +9,7 @@ type Props = {
 export default function Counter(props: Props) {
   return (
     <Subscribe to={[CounterContainer]}>
-      {counter => (
+      {(counter: CounterContainer) => (
         <div>
           <span>{counter.state.count}</span>
           <button onClick={() => counter.increment(props.amount)}>+</button>

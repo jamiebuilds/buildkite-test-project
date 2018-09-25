@@ -9,12 +9,13 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "lint": "eslint src public",
-    "typecheck": "flow check",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
     "build": "parcel build src/index.html --out-dir dist",
     "start": "parcel serve src/index.html --out-dir dist"
   },
   "dependencies": {
+    "@types/react": "^16.4.14",
     "babel-runtime": "^6.26.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -22,6 +23,7 @@
     "unstated": "^2.1.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.2",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -36,9 +38,9 @@
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "flow-bin": "^0.72.0",
     "jest": "^22.4.4",
     "parcel": "^1.8.1",
-    "react-test-renderer": "^16.3.2"
+    "react-test-renderer": "^16.3.2",
+    "typescript": "^3.0.3"
   }
 }

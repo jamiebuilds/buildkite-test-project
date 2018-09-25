@@ -23,11 +23,10 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-  - name: ":flowtype: Typecheck"
+  - name: ":typescript: Typecheck"
     command:
       - yarn install --pure-lockfile
-      - apt-get update -qq && apt-get install -qy libelf1
-      - 'echo "+++ :flowtype: yarn typecheck"'
+      - 'echo "+++ :typescript: yarn typecheck"'
       - yarn typecheck
     plugins:
       docker#v1.4.0:

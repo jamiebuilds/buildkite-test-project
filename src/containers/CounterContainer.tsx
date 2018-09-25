@@ -1,4 +1,3 @@
-// @flow
 import { Container } from 'unstated';
 
 type State = {

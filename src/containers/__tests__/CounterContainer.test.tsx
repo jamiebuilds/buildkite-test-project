@@ -1,4 +1,3 @@
-// @flow
 import CounterContainer from '../CounterContainer';
 
 test('CounterContainer', async () => {
