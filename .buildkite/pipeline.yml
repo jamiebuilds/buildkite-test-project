@@ -11,6 +11,8 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+    artifact_paths:
+      - "coverage/**/*"
   - name: ":eslint: Lint"
     command:
       - yarn install --pure-lockfile
@@ -35,8 +37,6 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-    artifact_paths:
-      - "./flow.log"
   - name: ":parcel: Build"
     command:
       - yarn install --pure-lockfile
@@ -50,3 +50,5 @@ steps:
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
           - /usr/local/share/.cache/parcel/v1:/usr/local/share/.cache/parcel/v1
+    artifact_paths:
+      - "dist/**/*"
