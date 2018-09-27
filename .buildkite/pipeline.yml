@@ -41,7 +41,7 @@ steps:
     command:
       - yarn install --pure-lockfile
       - 'echo "+++ :parcel: yarn build"'
-      - yarn build
+      - yarn build --cache-dir /usr/local/share/.cache/parcel/v1
     plugins:
       docker#v1.4.0:
         image: node:10
@@ -49,3 +49,4 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+          - /usr/local/share/.cache/parcel/v1:/usr/local/share/.cache/parcel/v1
