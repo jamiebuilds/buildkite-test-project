@@ -1,5 +1,6 @@
 steps:
-  - name: ":jest: Test"
+  - name: ":jest: Test %n"
+    parallelism: 5
     command:
       - yarn install --pure-lockfile
       - 'echo "+++ :jest: yarn test"'
