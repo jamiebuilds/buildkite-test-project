@@ -2,7 +2,7 @@ steps:
   - name: ":jest: Test %n"
     # parallelism: 5
     command:
-      - yarn install --pure-lockfile
+      - bolt install --pure-lockfile
       - 'echo "+++ :jest: yarn test"'
       - yarn test --coverage
     plugins:
@@ -16,7 +16,7 @@ steps:
       - "coverage/**/*"
   - name: ":eslint: Lint"
     command:
-      - yarn install --pure-lockfile
+      - bolt install --pure-lockfile
       - 'echo "+++ :eslint: yarn lint"'
       - yarn lint
     plugins:
@@ -28,7 +28,7 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":typescript: Typecheck"
     command:
-      - yarn install --pure-lockfile
+      - bolt install --pure-lockfile
       - 'echo "+++ :typescript: yarn typecheck"'
       - yarn typecheck
     plugins:
@@ -38,10 +38,10 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-  - name: ":parcel: Build"
+  - name: ":babel: Build"
     command:
-      - yarn install --pure-lockfile
-      - 'echo "+++ :parcel: yarn build"'
+      - bolt install --pure-lockfile
+      - 'echo "+++ :babel: yarn build"'
       - yarn build --cache-dir /usr/local/share/.cache/parcel/v1
     plugins:
       docker#v1.4.0:

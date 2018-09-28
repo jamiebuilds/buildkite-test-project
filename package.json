@@ -9,31 +9,36 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "lint": "eslint src",
+    "lint": "eslint packages/*/src",
     "typecheck": "tsc --noEmit",
-    "build": "parcel build src/index.html --out-dir dist",
-    "start": "parcel serve src/index.html --out-dir dist"
+    "build": "bolt workspaces exec --parallel -- babel src -d dist --extensions \".ts,.tsx\" --config-file $(pwd)/babel.config.js --ignore '**/__tests__/**'"
+  },
+  "bolt": {
+    "workspaces": [
+      "packages/*"
+    ]
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.1",
     "@types/react": "^16.4.14",
-    "babel-runtime": "^6.26.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "styled-components": "^3.2.6",
     "unstated": "^2.1.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.1",
+    "@babel/core": "^7.1.1",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@types/jest": "^23.3.2",
     "ava": "^0.25.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1",
     "chunkd": "^1.0.0",
     "ci-parallel-vars": "^1.0.0",
     "eslint": "^4.19.1",
@@ -45,7 +50,6 @@
     "is-ci": "^1.2.1",
     "jest": "^22.4.4",
     "jest-config": "^23.6.0",
-    "parcel": "^1.10.1",
     "react-test-renderer": "^16.3.2",
     "typescript": "^3.0.3"
   }
