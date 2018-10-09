@@ -42,6 +42,7 @@ steps:
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":babel: Build"
+    parallelism: 5
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
