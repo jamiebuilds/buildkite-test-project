@@ -8,7 +8,7 @@ const child = require('child_process');
 let chunk = null;
 
 if (isCI && ciParallelVars && process.env.TEST_FILES) {
-  let tests = JSON.parse(process.env.TEST_FILES);
+  let tests = JSON.parse(process.env.TEST_FILES).sort();
   chunk = chunkd(tests, ciParallelVars.index, ciParallelVars.total);
   console.log(`Tests are being split across ${ciParallelVars.total} nodes. Current node running ${chunk.length} of ${tests.length} tests`);
 }
