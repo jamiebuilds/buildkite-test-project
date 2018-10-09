@@ -1,5 +1,6 @@
 steps:
   - name: ":jest: Test"
+    timeout_in_minutes: 5
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
@@ -29,6 +30,7 @@ steps:
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":typescript: Typecheck"
+    timeout_in_minutes: 5
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
