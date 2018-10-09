@@ -40,6 +40,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "bolt": "^0.22.4",
     "chunkd": "^1.0.0",
     "ci-parallel-vars": "^1.0.0",
     "eslint": "^4.19.1",

@@ -4,7 +4,7 @@ steps:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :jest: yarn test"'
-      - yarn test --coverage
+      - yarn test --coverage --cacheDirectory /usr/local/share/.cache/jest/v1
     plugins:
       docker#v1.4.0:
         image: node:10
@@ -12,6 +12,7 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/jest/v1
     artifact_paths:
       - "coverage/**/*"
   - name: ":eslint: Lint"
