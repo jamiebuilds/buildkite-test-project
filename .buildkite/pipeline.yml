@@ -1,5 +1,5 @@
 steps:
-  - name: ":jest: Test"
+  - name: ":jest: Test %n"
     parallelism: 5
     timeout_in_minutes: 5
     command:
