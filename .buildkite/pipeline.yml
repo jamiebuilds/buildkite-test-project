@@ -16,7 +16,6 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/jest/v1
         environment:
-          - CI
           - BUILDKITE_PARALLEL_JOB
           - BUILDKITE_PARALLEL_JOB_COUNT
     artifact_paths:
