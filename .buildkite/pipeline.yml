@@ -47,6 +47,8 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+    agents:
+      queue: "xl"
   - name: ":babel: Build %n"
     parallelism: 5
     command:
