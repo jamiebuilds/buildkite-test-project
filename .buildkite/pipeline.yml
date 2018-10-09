@@ -57,6 +57,8 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-          # - /usr/local/share/.cache/parcel/v1:/usr/local/share/.cache/parcel/v1
+        environment:
+          - BUILDKITE_PARALLEL_JOB
+          - BUILDKITE_PARALLEL_JOB_COUNT
     artifact_paths:
       - "dist/**/*"
