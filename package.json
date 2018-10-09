@@ -11,7 +11,8 @@
     "test": "jest",
     "lint": "eslint packages/*/src/**/*.{ts,tsx}",
     "typecheck": "tsc --noEmit",
-    "build": "bolt workspaces exec --parallel-nodes -- babel src -d dist --extensions \".ts,.tsx\" --config-file $(pwd)/babel.config.js --ignore '**/__tests__/**'"
+    "build": "bolt workspaces exec --parallel-nodes -- babel src -d dist --extensions \".ts,.tsx\" --config-file $(pwd)/babel.config.js --ignore '**/__tests__/**'",
+    "env": "env"
   },
   "bolt": {
     "workspaces": [

@@ -47,6 +47,7 @@ steps:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :babel: bolt build"'
+      - bolt env
       - bolt build --cache-dir /usr/local/share/.cache/parcel/v1
     plugins:
       docker#v1.4.0:
