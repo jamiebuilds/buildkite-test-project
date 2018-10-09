@@ -1,52 +1,53 @@
 steps:
-  - name: ":jest: Test"
-    command:
-      - ./.buildkite/setup.sh
-      - bolt install --pure-lockfile
-      - 'echo "+++ :jest: yarn test"'
-      - yarn test --coverage --cacheDirectory /usr/local/share/.cache/jest/v1
-    plugins:
-      docker#v1.4.0:
-        image: node:10
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/jest/v1
-    artifact_paths:
-      - "coverage/**/*"
-  - name: ":eslint: Lint"
-    command:
-      - ./.buildkite/setup.sh
-      - bolt install --pure-lockfile
-      - 'echo "+++ :eslint: bolt lint"'
-      - bolt lint
-    plugins:
-      docker#v1.4.0:
-        image: node:10
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-  - name: ":typescript: Typecheck"
-    command:
-      - ./.buildkite/setup.sh
-      - bolt install --pure-lockfile
-      - 'echo "+++ :typescript: bolt typecheck"'
-      - bolt typecheck
-    plugins:
-      docker#v1.4.0:
-        image: node:10
-        mounts:
-          - /var/run/docker.sock:/var/run/docker.sock
-          - /var/buildkite/builds:/var/buildkite/builds
-          - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  # - name: ":jest: Test"
+  #   command:
+  #     - ./.buildkite/setup.sh
+  #     - bolt install --pure-lockfile
+  #     - 'echo "+++ :jest: yarn test"'
+  #     - yarn test --coverage --cacheDirectory /usr/local/share/.cache/jest/v1
+  #   plugins:
+  #     docker#v1.4.0:
+  #       image: node:10
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  #         - /var/buildkite/builds:/var/buildkite/builds
+  #         - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  #         - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/jest/v1
+  #   artifact_paths:
+  #     - "coverage/**/*"
+  # - name: ":eslint: Lint"
+  #   command:
+  #     - ./.buildkite/setup.sh
+  #     - bolt install --pure-lockfile
+  #     - 'echo "+++ :eslint: bolt lint"'
+  #     - bolt lint
+  #   plugins:
+  #     docker#v1.4.0:
+  #       image: node:10
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  #         - /var/buildkite/builds:/var/buildkite/builds
+  #         - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
+  # - name: ":typescript: Typecheck"
+  #   command:
+  #     - ./.buildkite/setup.sh
+  #     - bolt install --pure-lockfile
+  #     - 'echo "+++ :typescript: bolt typecheck"'
+  #     - bolt typecheck
+  #   plugins:
+  #     docker#v1.4.0:
+  #       image: node:10
+  #       mounts:
+  #         - /var/run/docker.sock:/var/run/docker.sock
+  #         - /var/buildkite/builds:/var/buildkite/builds
+  #         - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":babel: Build"
     parallelism: 5
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :babel: bolt build"'
+      - env
       - bolt env
       - bolt build --cache-dir /usr/local/share/.cache/parcel/v1
     plugins:
@@ -56,6 +57,6 @@ steps:
           - /var/run/docker.sock:/var/run/docker.sock
           - /var/buildkite/builds:/var/buildkite/builds
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
-          - /usr/local/share/.cache/parcel/v1:/usr/local/share/.cache/parcel/v1
+          # - /usr/local/share/.cache/parcel/v1:/usr/local/share/.cache/parcel/v1
     artifact_paths:
       - "dist/**/*"
