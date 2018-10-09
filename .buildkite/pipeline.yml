@@ -1,6 +1,5 @@
 steps:
-  - name: ":jest: Test %n"
-    # parallelism: 5
+  - name: ":jest: Test"
     command:
       - bolt install --pure-lockfile
       - 'echo "+++ :jest: yarn test"'

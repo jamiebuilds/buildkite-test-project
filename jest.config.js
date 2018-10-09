@@ -4,10 +4,6 @@ const isCI = require('is-ci');
 const ciParallelVars = require('ci-parallel-vars');
 const child = require('child_process');
 
-// if (isCI && ciParallelVars) {
-//   chil
-// }
-
 module.exports = {
   testMatch: [
     ...config.defaults.testMatch,

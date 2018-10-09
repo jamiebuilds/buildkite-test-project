@@ -6,11 +6,22 @@
     "prefer-const": "off",
     "function-paren-newline": "off",
     "react/jsx-filename-extension": ["error", {
-      "extensions": [".js"]
+      "extensions": [".js", ".tsx"]
     }],
     "react/jsx-tag-spacing": ["error", {
       "beforeSelfClosing": "never"
+    }],
+    "import/extensions": ["error", "always", {
+      "js": "never",
+      "ts": "never",
+      "tsx": "never"
     }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": true,
+      "eslint-import-resolver-typescript": true
+    }
   },
   "env": {
     "browser": true
