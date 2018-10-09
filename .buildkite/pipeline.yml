@@ -18,8 +18,8 @@ steps:
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
-      - 'echo "+++ :eslint: yarn lint"'
-      - yarn lint
+      - 'echo "+++ :eslint: bolt lint"'
+      - bolt lint
     plugins:
       docker#v1.4.0:
         image: node:10
@@ -31,8 +31,8 @@ steps:
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
-      - 'echo "+++ :typescript: yarn typecheck"'
-      - yarn typecheck
+      - 'echo "+++ :typescript: bolt typecheck"'
+      - bolt typecheck
     plugins:
       docker#v1.4.0:
         image: node:10
@@ -44,8 +44,8 @@ steps:
     command:
       - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
-      - 'echo "+++ :babel: yarn build"'
-      - yarn build --cache-dir /usr/local/share/.cache/parcel/v1
+      - 'echo "+++ :babel: bolt build"'
+      - bolt build --cache-dir /usr/local/share/.cache/parcel/v1
     plugins:
       docker#v1.4.0:
         image: node:10
