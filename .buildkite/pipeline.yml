@@ -1,6 +1,7 @@
 steps:
   - name: ":jest: Test"
     command:
+      - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :jest: yarn test"'
       - yarn test --coverage
@@ -15,6 +16,7 @@ steps:
       - "coverage/**/*"
   - name: ":eslint: Lint"
     command:
+      - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :eslint: yarn lint"'
       - yarn lint
@@ -27,6 +29,7 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":typescript: Typecheck"
     command:
+      - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :typescript: yarn typecheck"'
       - yarn typecheck
@@ -39,6 +42,7 @@ steps:
           - /usr/local/share/.cache/yarn/v2:/usr/local/share/.cache/yarn/v2
   - name: ":babel: Build"
     command:
+      - ./.buildkite/setup.sh
       - bolt install --pure-lockfile
       - 'echo "+++ :babel: yarn build"'
       - yarn build --cache-dir /usr/local/share/.cache/parcel/v1
